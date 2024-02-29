@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./index.css" />
+        <title>custom language change</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="container">
+                    <div class="language-bar">
+                        <button class="language-button">
+                            <span class="selected-language">EN</span>
+                        </button>
+                        <div class="language-dropdown">
+                            <div class="lang-drop-wrap">
+                                <input type="checkbox" id="lang-ua" />
+                                <label for="lang-ua">Українська</label>
+                            </div>
+                            <div class="lang-drop-wrap">
+                                <input type="checkbox" id="lang-en" />
+                                <label for="lang-en">English</label>
+                            </div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="one" data-lang="One">One</li>
+                        <li class="two" data-lang="Two">Two</li>
+                        <li class="three" data-lang="Three">Three</li>
+                        <li class="four" data-lang="Four">Four</li>
+                    </ul>
+                    <ul>
+                        <li class="one" data-lang="One1">One</li>
+                        <li class="two" data-lang="Two1">Two</li>
+                        <li class="three" data-lang="Three1">Three</li>
+                        <li class="four" data-lang="1">Four</li>
+                    </ul>
+                </div>
+            </header>
+        </div>
+        <script src="./index.js"></script>
+    </body>
+</html>
