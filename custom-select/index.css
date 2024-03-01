@@ -39,17 +39,11 @@ ul {
 .custom-select-option-dropdown {
     border: 1px solid #00000044;
     border-top: none;
-    /* display: none; */
-    height: 0;
-    transition: 0.2s ease-in-out opacity 0.2s height 0.2s;
-    visibility: hidden;
-    opacity: 0;
+    display: none;
+    /* opacity: 0; */
 }
 .custom-select-option-dropdown.active {
-    /* display: block; */
-    visibility: visible;
-    opacity: 1;
-    height: 100%; 
+    display: block;
 }
 .option {
     cursor: pointer;
@@ -58,4 +52,7 @@ ul {
 .option:hover,
 .selected:hover {
     background-color: #00000066;
+}
+.selected.focus:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
 }

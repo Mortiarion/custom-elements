@@ -1,57 +1,78 @@
-const selected = document.querySelector(".selected");
-const customSelectOptionsDropdown = document.querySelector(
-    ".custom-select-option-dropdown"
-);
+const customSelect = () => {
+    const selected = document.querySelector(".selected");
+    const optionDropdown = document.querySelector(
+        ".custom-select-option-dropdown"
+    );
 
+    const optionsText = [
+        "Option 1",
+        "Option 2",
+        "Option 3",
+        "Option 4",
+        "Option 5",
+        "Option 6",
+    ];
 
-selected.setAttribute("tabindex", "0");
+    const openSelect = () => {
+        optionDropdown.classList.add("active");
+        selected.classList.add("rotate");
+    };
 
-const openSelect = () => {
-    customSelectOptionsDropdown.classList.contains("active")
-        ? customSelectOptionsDropdown.classList.remove("active")
-        : customSelectOptionsDropdown.classList.add("active")
-        ? selected.classList.add("rotate")
-        : selected.classList.remove("rotate");
+    const closeSelect = () => {
+        optionDropdown.classList.remove("active");
+        selected.classList.remove("rotate");
+    };
+
+    selected.addEventListener("click", () => {
+        selected.classList.contains("rotate") ? closeSelect() : openSelect();
+    });
+
+    const createOptions = () => {
+        const optionELements = [];
+        
+        optionsText.forEach((option, index) => {
+            const li = document.createElement("li");
+            li.textContent = option;
+            li.className = "option";
+            li.setAttribute("tabindex", "0");
+
+            optionDropdown.appendChild(li);
+            optionELements.push(li);
+
+            li.addEventListener("click", () => {
+                selected.textContent = option;
+                closeSelect();
+            });
+
+            li.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    selected.textContent = option;
+                    closeSelect();
+                    selected.focus();
+                }
+
+                if (e.key === "ArrowUp") {
+                    const prevOptionIndex =
+                        index === 0 ? optionsText.length - 1 : index - 1;
+                    optionELements[prevOptionIndex].focus();
+                }
+
+                if (e.key === "ArrowDown") {
+                    const nextOptionIndex =
+                        index === optionsText.length - 1 ? 0 : index + 1;
+                    optionELements[nextOptionIndex].focus();
+                }
+            });
+            
+            selected.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    openSelect();
+                }
+            });
+        });
+    };
+
+    createOptions();
 };
 
-selected.addEventListener("click", openSelect);
-
-selected.addEventListener("keydown", (e) => {
-    const enter = e.key === "Enter";
-    if (enter) {
-        openSelect();
-    }
-});
-
-const options = ["Option 1", "Option 2", "Option 3"];
-console.log(options);
-
-options.forEach((option) => {
-    const li = document.createElement("li");
-    li.classList.add("option");
-    li.textContent = option;
-    li.setAttribute("tabindex", "0");
-
-    li.addEventListener("click", () => {
-        selected.textContent = option;
-    });
-
-    li.addEventListener("keydown", (e) => {
-        const enter = e.key === "Enter";
-        const space = e.key === " ";
-        const arrowUp = e.key === "ArrowUp";
-        const arrowDown = e.key === "ArrowDown";
-
-        if (enter || space ) {
-            selected.textContent = option;
-        }
-        if (arrowUp) {
-            prevOption
-        }
-        if (arrowDown) {
-
-        }
-    });
-
-    customSelectOptionsDropdown.appendChild(li);
-});
+customSelect();
