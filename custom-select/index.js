@@ -27,9 +27,15 @@ const customSelect = () => {
         selected.classList.contains("rotate") ? closeSelect() : openSelect();
     });
 
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeSelect();
+        }
+    });
+
     const createOptions = () => {
         const optionELements = [];
-        
+
         optionsText.forEach((option, index) => {
             const li = document.createElement("li");
             li.textContent = option;
@@ -63,7 +69,7 @@ const customSelect = () => {
                     optionELements[nextOptionIndex].focus();
                 }
             });
-            
+
             selected.addEventListener("keydown", (e) => {
                 if (e.key === "Enter") {
                     openSelect();
