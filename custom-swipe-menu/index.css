@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.swipe-menu {
+    width: 300px;
+    overflow-x: hidden;
+    white-space: nowrap;
+    display: flex;
+    gap: 20px;
+    border: 1px solid #00000077;
+    list-style: none;
+}
+.swipe-menu li {
+    display: inline-block;
+    padding: 10px 5px;
+    /* width: 100px; */
+    /* height: 100px; */
+    /* background-color: #ccc; */
+    /* margin: 10px; */
+}
