@@ -1,28 +1,76 @@
-console.log("Starting");
+const sliderWrapper = document.querySelector(".slider-wrapper");
+const slides = document.querySelectorAll(".slide");
 
-const buttonPrev = document.querySelector(".arrow-prev");
-const buttonNext = document.querySelector(".arrow-next");
-const slides = document.querySelector(".slides");
-const slidesCount = document.querySelectorAll(".slides").length;
-console.log(slidesCount);
-let currentIndex = 0;
+const leftBtn = document.querySelector("#left-btn");
+const rightBtn = document.querySelector("#right-btn");
 
-const goToSlides = (index) => {
-    console.log(index);
-    slides.style.transform = `translatex(-${index * 100}%)`;
-};
+let width = sliderWrapper.clientWidth;
 
-const nextSlides = () => {
-    currentIndex = (currentIndex + 1) % slidesCount;
-    goToSlides(currentIndex);
-};
+let lastClickTime = 0;
+const delay = 1000;
 
-const prevSlides = () => {
-    currentIndex = (currentIndex - 1 + slidesCount) % slidesCount;
-    goToSlides(currentIndex);
-};
+positioning();
 
-buttonPrev.addEventListener("click", () => {
-    
-});
-buttonNext.addEventListener("click", prevSlides);
+window.addEventListener("resize", positioning);
+
+setInterval(moveRight, 5000);
+
+function positioning() {
+    width = sliderWrapper.clientWidth;
+
+    slides.forEach((slide, index) => {
+        let x = index * width;
+        if (index === slides.length - 1) {
+            x = -width;
+        }
+
+        slide.setAttribute("data-x", x);
+        slide.style.transform = `translateX(${x}px)`;
+    });
+}
+
+function moveRight() {
+    const now = new Date().getTime();
+    if (now - lastClickTime < delay) {
+        return;
+    }
+
+    slides.forEach((slide) => {
+        const x = Number(slide.getAttribute("data-x"));
+        let newX = x - width;
+
+        if (newX < -(width * (slides.length - 2))) {
+            newX = width;
+            slide.style.zIndex = -1;
+        } else {
+            slide.style.zIndex = 1;
+        }
+
+        slide.style.transform = `translateX(${newX}px)`;
+        slide.setAttribute("data-x", newX);
+    });
+    lastClickTime = now;
+}
+
+function moveLeft() {
+    const now = new Date().getTime();
+
+    slides.forEach((slide) => {
+        const x = Number(slide.getAttribute("data-x"));
+        let newX = x + width;
+
+        if (newX > width * (slides.length - 2)) {
+            newX = -width;
+            slide.style.zIndex = -1;
+        } else {
+            slide.style.zIndex = 1;
+        }
+
+        slide.style.transform = `translateX(${newX}px)`;
+        slide.setAttribute("data-x", newX);
+    });
+    lastClickTime = now;
+}
+
+leftBtn.addEventListener("click", moveLeft);
+rightBtn.addEventListener("click", moveRight);
