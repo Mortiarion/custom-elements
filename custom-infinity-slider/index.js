@@ -1,5 +1,5 @@
 const sliderWrapper = document.querySelector(".slider-wrapper");
-const slides = document.querySelectorAll(".slide");
+const slides = sliderWrapper.querySelectorAll(".slide");
 
 const leftBtn = document.querySelector("#left-btn");
 const rightBtn = document.querySelector("#right-btn");
