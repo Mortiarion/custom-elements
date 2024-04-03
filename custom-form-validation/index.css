@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --ccc: #cccccc;
+    --red: #ff0000;
+}
+
+input {
+    padding: 0;
+}
+
+input:focus-visible {
+    outline-offset: 3px;
+    outline: double cornflowerblue 2px;
+}
+
+.form-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid var(--ccc);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-email,
+.form-phone,
+.form-password {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-email input,
+.form-phone input,
+.form-password input {
+    border: 1px solid var(--ccc);
+}
+
+.form-email input.error,
+.form-phone input.error,
+.form-password input.error {
+    border-color: var(--red);
+}
+
+.error-label {
+    font-size: 14px;
+    color: var(--red);
+}
