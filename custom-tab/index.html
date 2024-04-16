@@ -5,14 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>custom-tabs</title>
         <style>
-            button {
-                background-color: #091258;
-                padding: 5px 10px;
-                color: #ffffff;
-                border: 1px solid #456781;
-                border-radius: 8px;
-                cursor: pointer;
-            }
             .tabs {
                 display: flex;
                 justify-content: space-between;
@@ -21,10 +13,18 @@
                 border: 1px solid #ccc;
                 background-color: #383636;
                 margin-bottom: 10px;
-                & button {
+                & .tab-button {
                     font-size: 32px;
+                    background-color: #091258;
+                    padding: 5px 10px;
+                    color: #ffffff;
+                    border: 1px solid #456781;
+                    border-radius: 8px;
+                    cursor: pointer;
                     &.active {
                         border: 1px solid red;
+                        pointer-events: none;
+                        background-color: #6f6f70;
                     }
                 }
             }
@@ -50,47 +50,37 @@
     <body>
         <div class="tabs-wrapper">
             <div class="tabs">
-                <button>TAB-1</button>
-                <button>TAB-2</button>
-                <button>TAB-3</button>
+                <button class="tab-button active">TAB-1</button>
+                <button class="tab-button">TAB-2</button>
+                <button class="tab-button">TAB-3</button>
             </div>
             <div class="tabs-content-wrapper">
-                <div class="tab-content">CONTENT TAB-1</div>
+                <div class="tab-content active">CONTENT TAB-1</div>
                 <div class="tab-content">CONTENT TAB-2</div>
                 <div class="tab-content">CONTENT TAB-3</div>
             </div>
         </div>
         <script>
-            function tab() {
-                selectTabData();
-                // selectTabContent();
-            }
-            tab();
-            function selectTabData() {
-                document
-                    .querySelectorAll(".tabs button")
-                    .forEach((button, index) => {
-                        const dataIndex = "tab" + "-" + (index + 1);
+            (() => {
+                const tabs = document.querySelectorAll(".tabs .tab-button");
+                const tabContent = document.querySelectorAll(
+                    ".tabs-content-wrapper .tab-content"
+                );
 
-                        button.addEventListener("click", (event) => {
-                            button.setAttribute("data-tab", dataIndex);
-                            button.classList.toggle("active");
-                            selectTabContent();
-                            const targ = event.target;
-                            console.log(targ)
-                        });
-                    });
-            }
+                tabs.forEach((button, index) => {
+                    button.addEventListener("click", () => {
+                        tabContent.forEach((content) =>
+                            content.classList.remove("active")
+                        );
 
-            function selectTabContent() {
-                document
-                    .querySelectorAll(".tabs-content-wrapper .tab-content")
-                    .forEach((item, index) => {
-                        const contentIndex = "content" + "-" + (index + 1);
-                        item.setAttribute("data-content", contentIndex);
-                        item.classList.toggle("active");
+                        tabContent[index].classList.add("active");
+
+                        tabs.forEach((c) => c.classList.remove("active"));
+
+                        button.classList.add("active");
                     });
-            }
+                });
+            })();
         </script>
     </body>
 </html>
