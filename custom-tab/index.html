@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>custom-tabs</title>
+        <style>
+            button {
+                background-color: #091258;
+                padding: 5px 10px;
+                color: #ffffff;
+                border: 1px solid #456781;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            .tabs {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 20px;
+                border-radius: 10px;
+                border: 1px solid #ccc;
+                background-color: #383636;
+                margin-bottom: 10px;
+                & button {
+                    font-size: 32px;
+                    &.active {
+                        border: 1px solid red;
+                    }
+                }
+            }
+            .tabs-content-wrapper {
+                margin: 0 30px;
+                & .tab-content {
+                    background-color: #ddd;
+                    color: #af3e3e;
+                    font-weight: 900;
+                    border-radius: 15px;
+                    height: 150px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    display: none;
+                    &.active {
+                        display: flex;
+                    }
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="tabs-wrapper">
+            <div class="tabs">
+                <button>TAB-1</button>
+                <button>TAB-2</button>
+                <button>TAB-3</button>
+            </div>
+            <div class="tabs-content-wrapper">
+                <div class="tab-content">CONTENT TAB-1</div>
+                <div class="tab-content">CONTENT TAB-2</div>
+                <div class="tab-content">CONTENT TAB-3</div>
+            </div>
+        </div>
+        <script>
+            function tab() {
+                selectTabData();
+                // selectTabContent();
+            }
+            tab();
+            function selectTabData() {
+                document
+                    .querySelectorAll(".tabs button")
+                    .forEach((button, index) => {
+                        const dataIndex = "tab" + "-" + (index + 1);
+
+                        button.addEventListener("click", (event) => {
+                            button.setAttribute("data-tab", dataIndex);
+                            button.classList.toggle("active");
+                            selectTabContent();
+                            const targ = event.target;
+                            console.log(targ)
+                        });
+                    });
+            }
+
+            function selectTabContent() {
+                document
+                    .querySelectorAll(".tabs-content-wrapper .tab-content")
+                    .forEach((item, index) => {
+                        const contentIndex = "content" + "-" + (index + 1);
+                        item.setAttribute("data-content", contentIndex);
+                        item.classList.toggle("active");
+                    });
+            }
+        </script>
+    </body>
+</html>
